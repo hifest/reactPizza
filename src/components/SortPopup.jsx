@@ -1,10 +1,9 @@
 import React, { useState,useEffect,useRef } from "react";
-import classNames from "classnames";
 function SortPopup({items}) {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const  [activeItem, setActiveItem] = useState(0)
     const sortRef = useRef(null);
-    const activeLabel = items[activeItem]
+    const activeLabel = items[activeItem].name
 
     const OnToggleVisiblePopup = () =>{
         setVisiblePopup(!visiblePopup)
@@ -50,12 +49,12 @@ function SortPopup({items}) {
         { visiblePopup && 
           <div className="sort__popup">
             <ul>
-              {items && items.map((name,index)=>{
+              {items && items.map((obj,index)=>{
                 return <li 
                 classNames={activeItem === index ? 'active' : ''}
                 key={index}
                 onClick={()=>onSelectItem(index)}
-                >{name}</li>
+                >{obj.name}</li>
               })}
             </ul>
           </div>

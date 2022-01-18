@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import PropTypes from 'prop-types'
 
 function PizzaBlock({ name, imageUrl, sizes, price, types }) {
   const [activeType, setActiveType] = useState(types[0]);
@@ -74,5 +75,20 @@ function PizzaBlock({ name, imageUrl, sizes, price, types }) {
     </div>
   );
 }
+
+PizzaBlock.propTypes = {
+  name: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  price:PropTypes.number.isRequired,
+  types: PropTypes.arrayOf(PropTypes.number).isRequired,
+  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+};
+
+PizzaBlock.defaultProps = {
+  types: [],
+  name: '---',
+  sizes: [],
+  price: 0,
+};
 
 export default PizzaBlock;

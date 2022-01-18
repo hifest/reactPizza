@@ -17,7 +17,7 @@ function Header() {
         </Link>
         <div className="header__cart">
           <Link to="/cart">
-            <Button className="button--cart">
+            <Button on className="button--cart">
               <span>555 ₽</span>
               <div className="button__delimiter"></div>
               <svg

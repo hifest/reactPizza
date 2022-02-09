@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import Button from "../Button";
 
-function PizzaBlock({ name, imageUrl, sizes, price, types }) {
+function PizzaBlock({ id, name, imageUrl, sizes, price, types, onAddPizza,cartItems }) {
   const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(0);
   const avaliableTypesNames = ["тонкое", "традиционное"];
   const avaliableSizes = [26, 30, 40];
-
+  const [activeSize, setActiveSize] = useState(0);
   const onSelectType = (index) => {
     setActiveType(index);
   };
@@ -15,6 +15,17 @@ function PizzaBlock({ name, imageUrl, sizes, price, types }) {
     setActiveSize(index);
   };
 
+  const handleAppPizza = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size : sizes[activeSize],
+      type:avaliableTypesNames[activeType]
+    }
+    onAddPizza(obj);
+  };
   return (
     <div>
       <div className="pizza-block">
@@ -54,7 +65,11 @@ function PizzaBlock({ name, imageUrl, sizes, price, types }) {
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
-          <div className="button button--outline button--add">
+          <Button
+            onClick={handleAppPizza}
+            className="button button--outline button--add"
+            outline
+          >
             <svg
               width="12"
               height="12"
@@ -68,8 +83,9 @@ function PizzaBlock({ name, imageUrl, sizes, price, types }) {
               />
             </svg>
             <span>Добавить</span>
-            <i>2</i>
-          </div>
+            
+            {cartItems && <i>{cartItems}</i>}
+          </Button>
         </div>
       </div>{" "}
     </div>
@@ -79,14 +95,14 @@ function PizzaBlock({ name, imageUrl, sizes, price, types }) {
 PizzaBlock.propTypes = {
   name: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  price:PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 PizzaBlock.defaultProps = {
   types: [],
-  name: '---',
+  name: "---",
   sizes: [],
   price: 0,
 };
